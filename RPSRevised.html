@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head><h1>Rock Paper Scissors</h1></head>
+    <body>
+        <div id = "score"></div>
+        <div id = "announcement"></div>
+        <div>
+            <button id="rock" class = "key" >Rock</button>
+            <button id="paper" class = "key">Paper</button>
+            <button id="scissors" class = "key">Scissors</button>
+        </div>
+        <div id="ending"></div>''
+    </body>
+
+    <style>
+        h1{
+            position: relative;
+            margin-left: 50%;
+            font-size: 20px;
+        }
+        .key{
+            font-size: 25px;
+            padding: 10px 10px;
+            border-radius: 20px;
+            width: 20%;
+        }
+        .key:hover{
+            color: white;
+        }
+        #rock{
+            border: 5px solid white;
+            background-color: green;
+            color: black;
+        }
+        #paper{
+            border: 5px solid white;
+            background-color: blue;
+            color: black;
+        }
+        #scissors{
+            border: 5px solid white;
+            background-color: red;
+            color: black;
+        }
+
+        .playing {
+            transform: scale(1.1);
+            border-color: #ffc600;
+            box-shadow: 0 0 1rem #ffc600;
+        }
+
+    </style>
+    
+    
+    
+    <script>
+        let playerScore= 0, computerScore = 0;
+        let score = document.querySelector('#score');
+        const ending = document.querySelector('#ending');
+        let announcement = document.querySelector('#announcement');
+        const rock = document.querySelector("#rock");
+        const scissors = document.querySelector("#scissors");
+        const paper = document.querySelector("#paper");
+
+        score.textContent = "Player Score:" + playerScore + "    Computer Score:" + computerScore;
+            rock.addEventListener('click', () =>{
+                let computer = computerSelection();
+                announcement.textContent =  playRock(computer);
+                score.textContent = "Player Score:" + playerScore + "    Computer Score:" + computerScore;
+                if(playerScore==5 || computerScore===5)
+                    winner(playerScore);
+            });
+            
+            paper.addEventListener('click', () =>{
+                let computer = computerSelection();
+                announcement.textContent =  playPaper(computer);
+                score.textContent = "Player Score:" + playerScore + "    Computer Score:" + computerScore;
+                if(playerScore==5 || computerScore===5)
+                    winner(playerScore);
+            });
+
+           scissors.addEventListener('click', () =>{
+                let computer = computerSelection();
+                announcement.textContent =  playScissors(computer);
+                score.textContent = "Player Score:" + playerScore + "    Computer Score:" + computerScore;
+                if(playerScore==5 || computerScore===5)
+                    winner(playerScore);
+            });
+            
+
+        //Each instance of when the player picks either rock, paper, or scissors
+        function playRock(computer){
+            if(computer==="paper"){
+                computerScore++;
+                return "You Lose! Paper beats Rock";
+            }else if(computer==="scissors"){
+                playerScore++;
+                return "You Win! Rock beats Paper";
+            }else
+                return "Tie";
+        }
+        function playPaper(computer){
+            if(computer==="rock"){
+                playerScore++;
+                return "You Win! Paper beats Rock";
+            }else if(computer==="scissors"){
+                computerScore++;
+                return "You Lose! Scissors beats Paper";
+            }else
+                return "Tie";
+        }
+        function playScissors(computer){
+            if(computer==="rock"){
+                computerScore++;
+                return "You Lose! Rock beats Scissors";
+            }else if(computer==="paper"){
+                playerScore++;
+                return "You Win! Scissors beats Paper";
+            }else
+                return "Tie";
+        }
+        
+        //The computers randomly generated number that it uses to select
+        function computerSelection(){
+            let num = Math.floor(Math.random()*4)+1;
+            if(num===1)
+                return "rock";
+            else if(num===2)
+                return "paper";
+            else
+                return "scissors";
+        }
+
+        function winner(score){
+            if(score===5)
+                ending.textContent = "You Are The Winner!!! :)";
+            else
+                ending.textContent = "You Are The Loser. :(";
+        }
+    </script>
+</html>

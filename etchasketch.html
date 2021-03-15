@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <button id = "reset"> Reset</button>
+    <div id = "grid"></div>
+    
+</body>
+
+<style>
+    .square{
+        height: 1fr;
+        width: 1fr;
+    }
+    .color{
+        background-color: gray;
+    }
+    #grid{
+        display: grid;
+        grid-gap: 1px;
+    }
+
+    .hover{
+        background-color: black;
+    }
+</style>
+
+<script>
+    const reset = document.querySelector('#reset');
+    const grid = document.querySelector('#grid');
+    let arr = [];
+    gridSize(16,16);
+    itemsingrid(256);
+    
+
+    
+
+    function hover(){
+        arr.forEach( item =>{
+            item.addEventListener('mouseenter',()=>{
+                item.classList.add("hover");
+            })
+        });
+    }
+    //reset button that clears the board, prompts user for a new grid,
+    //and recreates a new grid.
+    reset.addEventListener('click', ()=>{
+        arr.forEach( item =>{
+            item.classList.remove("hover");
+        })
+        let width = findWidth();
+            let height = findHeight();
+            console.log("hello");
+            arr = []
+            document.getElementById('grid').innerHTML = "";
+            gridSize(width, height);
+            let blocks = width * height;
+            itemsingrid(blocks);
+            hover();
+    });
+    //Function that creates the div elements and places them in the grid.
+    function itemsingrid(items){
+        for(let i=1; i<=items; i++){
+            var object = document.createElement('div');
+            object.classList.add("square", "color");
+            object.textContent = i;
+            arr.push(object);
+            grid.appendChild(object);
+        }
+        hover();
+    }
+    //Creates width and height of a grid
+    function gridSize(width, height){
+        const container = document.getElementById('grid');
+        container.style.gridTemplateColumns = `repeat(${width}, 1fr)`
+        container.style.gridTemplateRows = `repeat(${height}, 1fr)`
+    }
+
+    //prompts users for how many items in each row or column
+    function findWidth(){
+        return prompt("How many rows would you like?");
+    }
+    function findHeight(){
+        return prompt("How many columns would you like?");
+    }
+
+</script>
+</html>
